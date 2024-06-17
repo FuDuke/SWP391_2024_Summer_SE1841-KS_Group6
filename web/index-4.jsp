@@ -47,14 +47,15 @@
 								<li><a href="index-2.jsp">SPECIAL OFFERS</a></li>
 								<li><a href="index-3.jsp">BLOG</a></li>
 								<li class="current"><a href="index-4.html">CONTACTS</a></li>
-							</ul>
+                                                                <li><a href="List_Tour_Admin">ADMIN</a></li>
+                                                        </ul>
 						</nav>
 						<div class="clear"></div>
 					</div>
 				</div>
 				<div class="grid_12">
 					<h1>
-						<a href="index.html">
+						<a href="index.jsp">
 							<img src="images/logo.png" alt="Your Happy Family">
 						</a>
 					</h1>

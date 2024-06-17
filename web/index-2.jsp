@@ -45,7 +45,8 @@
 								<li class="current"><a href="index-2.jsp">SPECIAL OFFERS</a></li>
 								<li><a href="index-3.jsp">BLOG</a></li>
 								<li><a href="index-4.jsp">CONTACTS</a></li>
-							</ul>
+                                                                <li><a href="List_Tour_Admin">ADMIN</a></li>
+                                                        </ul>
 						</nav>
 						<div class="clear"></div>
 					</div>
