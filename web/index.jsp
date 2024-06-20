@@ -76,6 +76,7 @@
 								<li><a href="index-3.jsp">BLOG</a></li>
 								<li><a href="index-4.jsp">CONTACTS</a></li>
                                                                 <li><a href="List_Tour_Admin">ADMIN</a></li>
+                                                                 <li><a href="Travel Agent.jsp">Travel Agent</a></li>
 							</ul>
 						</nav>
 						<div class="clear"></div>

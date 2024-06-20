@@ -129,6 +129,7 @@
                                 <li><a href="index-3.jsp">BLOG</a></li>
                                 <li><a href="index-4.jsp">CONTACTS</a></li>
                                 <li class="current"><a href="/admin/admin.jsp">ADMIN</a></li>
+                                <li><a href="Travel Agent.jsp">Travel Agent</a></li>
                             </ul>
                         </nav>
                         <div class="clear"></div>
@@ -146,75 +147,42 @@
         <!--==============================Content=================================-->
         <div class="container">
             <div class="header">
-                <h1>Tour Details and Edit</h1>
+                <h1>UPDATE TOUR</h1>
             </div>
             <div class="content">
-                <form action="Update_One_Tour" method="get">
+                <form name="hotelForm" action="Update_One_Hotel" method="post" onsubmit="return validateForm()">
                     <table>
                         <tr>
-                            <td>Tour Name:</td>
-                            <td><input value="tour_name" type="text" name="tour_name" required></td>
+                            <td>Hotel Name:</td>
+                            <td><input type="text" value="${update.hotel_name}" name="hotel_name" required></td>
+                        </tr>
+                        <tr>
+                            <td>Service Category ID:</td>
+                            <td><input type="text" value="${update.service_category_id}" name="service_category_id" required></td>
+                        </tr>
+                        <tr>
+                            <td>Daily Price:</td>
+                            <td><input type="text" value="${update.daily_price}" name="daily_price" required></td>
+                        </tr>
+                        <tr>
+                            <td>Holiday Price:</td>
+                            <td><input type="text" value="${update.holiday_price}" name="holiday_price" required></td>
+                        </tr>
+                        <tr>
+                            <td>Number of Rooms:</td>
+                            <td><input type="text" value="${update.number_room}" name="number_room" required></td>
+                        </tr>
+                        <tr>
+                            <td>Number of People:</td>
+                            <td><input type="text" value="${update.number_people}" name="number_people" required></td>
                         </tr>
                         <tr>
                             <td>Description:</td>
-                            <td><textarea name="description" value="description" required ></textarea></td>
+                            <td><input type="text"value="${update.description}" name="description" required></td>
                         </tr>
                         <tr>
-                            <td>Deposit:</td>
-                            <td><input type="text" oninput="validateNumberInput(event)"
-                                       value="deposit" name="deposit" required></td>
-                        </tr>
-                        <tr>
-                            <td>Start Date:</td>
-                            <td><input value="start_date" type="date" name="start_date" required></td>
-                        </tr>
-                        <tr>
-                            <td>End Date:</td>
-                            <td><input value="end_date" type="date" name="end_date" required></td>
-                        </tr>
-                        <tr>
-                            <td>Min Child:</td>
-                            <td><input type="text" oninput="validateNumberInput(event)"
-                                       value="min_child"     name="min_child" required></td>
-                        </tr>
-                        <tr>
-                            <td>Max Child:</td>
-                            <td><input type="text" oninput="validateNumberInput(event)"
-                                       value="max_child"    name="max_child" required></td>
-                        </tr>
-                        <tr>
-                            <td>Min Adult:</td>
-                            <td><input type="text" oninput="validateNumberInput(event)"
-                                       value="min_adult"  name="min_adult" required></td>
-                        </tr>
-                        <tr>
-                            <td>Max Adult:</td>
-                            <td><input type="text" oninput="validateNumberInput(event)"
-                                       value="max_adult"    name="max_adult" required></td>
-                        </tr>
-                        <tr>
-                            <td>Total Price:</td>
-                            <td><input type="text" oninput="validateNumberInput(event)"
-                                       value="total_price"       name="total_price" required></td>
-                        </tr>
-                        <tr>
-                            <td>Number of Days:</td>
-                            <td><input type="text" oninput="validateNumberInput(event)"
-                                       value="number_day"     name="number_day" required></td>
-                        </tr>
-                        <tr>
-                            <td>Tour Category:</td>
-                            <td>
-                                <select value="tour_category_id" name="tour_category_id" required>
-                                    <option value="1">Asia</option>
-                                    <option value="2">Europe</option>
-                                    <option value="3">Africa</option>
-                                    <option value="4">North America</option>
-                                    <option value="5">South America</option>
-                                    <option value="6">Oceania</option>
-                                    <option value="7">Antarctica</option>
-                                </select>
-                            </td>
+                            <td>Phone:</td>
+                            <td><input type="text" value="${update.phone}" name="phone" required></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="buttons"><input type="submit" value="Update"></td>

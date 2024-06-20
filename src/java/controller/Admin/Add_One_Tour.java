@@ -70,7 +70,7 @@ public class Add_One_Tour extends HttpServlet {
         int total_price = Integer.parseInt(request.getParameter("total_price"));
         String number_day = request.getParameter("number_day");
         int tour_category_id = Integer.parseInt(request.getParameter("tour_category_id"));
-
+        String image = request.getParameter("image");
         // Create Tour object
         Tour tour = new Tour();
         tour.setTour_name(tour_name);
@@ -86,7 +86,7 @@ public class Add_One_Tour extends HttpServlet {
         tour.setNumber_day(number_day);
         
         tour.setTour_catetgory_id(tour_category_id);
-
+        tour.setImage(image);
         // Add tour to the database
         TourDAO tourDAO = new TourDAO();
         boolean isSuccess = tourDAO.addTour(tour);

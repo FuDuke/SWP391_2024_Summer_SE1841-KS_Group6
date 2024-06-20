@@ -40,7 +40,7 @@ public class TourDAO extends DBContext implements TourRepo {
                 t.setNumber_day(rs.getString("number_day"));
                 t.setAccount_id(rs.getInt("account_id"));
                 t.setTour_catetgory_id(rs.getInt("tour_catetgory_id"));
-
+                t.setImage(rs.getString("image"));
                 list.add(t);
             }
         } catch (Exception e) {
@@ -72,6 +72,7 @@ public class TourDAO extends DBContext implements TourRepo {
                 t.setNumber_day(rs.getString("number_day"));
                 t.setAccount_id(rs.getInt("account_id"));
                 t.setTour_catetgory_id(rs.getInt("tour_catetgory_id"));
+                t.setImage(rs.getString("image"));
                 return t;
             }
         } catch (Exception e) {
@@ -97,8 +98,10 @@ public class TourDAO extends DBContext implements TourRepo {
                     + "           ,[total_price]\n"
                     + "           ,[number_day]\n"
                     + "           ,[account_id]\n"
-                    + "           ,[tour_catetgory_id])\n"
-                    + "     VALUES  (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "           ,[tour_catetgory_id]\n"
+                    + "           ,[image])\n" // Đúng cú pháp
+                    + "     VALUES  (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
             PreparedStatement stm = connection.prepareStatement(sql);
 
             stm.setString(1, t.getTour_name());
@@ -114,7 +117,7 @@ public class TourDAO extends DBContext implements TourRepo {
             stm.setString(11, t.getNumber_day());
             stm.setInt(12, t.getAccount_id());
             stm.setInt(13, t.getTour_catetgory_id());
-
+            stm.setString(14, t.getImage());
             isSuccess = stm.executeUpdate() == 1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,6 +142,7 @@ public class TourDAO extends DBContext implements TourRepo {
                 + "      ,[number_day] = ?\n"
                 + "      ,[account_id] = ?\n"
                 + "      ,[tour_catetgory_id] = ?\n"
+                + "      ,[image] = ?\n"
                 + " WHERE tour_name = ?";
 
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
@@ -155,23 +159,37 @@ public class TourDAO extends DBContext implements TourRepo {
             stm.setString(11, t.getNumber_day());
             stm.setInt(12, t.getAccount_id());
             stm.setInt(13, t.getTour_catetgory_id());
-            stm.setString(14, t.getTour_name());
+            stm.setString(14, t.getImage());
+            stm.setString(15, t.getTour_name());
+            
             isSuccess = stm.executeUpdate() == 1;
         } catch (SQLException ex) {
             Logger.getLogger(TourDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-         return isSuccess;
+        return isSuccess;
     }
 
     @Override
     public boolean deleteTour(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        boolean isSuccess = false;
+        String sql = """
+                 DELETE FROM [dbo].[Tour]
+                 WHERE tour_name = ?""";
+
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setString(1, name);
+            isSuccess = stm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace(); // Print the stack trace for debugging
+        }
+
+        return isSuccess;
     }
 
     public static void main(String[] args) {
         TourDAO tt = new TourDAO();
-        Tour t = new Tour("new2", "aaa", 2, "222", "222", "222", "222", "22", "22", 2, "12", 2, 2);
+        Tour t = new Tour("tour", "aaaa", 15, "20", "20", "1", "2", "2", "2", 5000, "15", 1, 2, "aaaa");
 
-        System.out.println(tt.editTour(t));
+        System.out.println(tt.addTour(t));
     }
 }

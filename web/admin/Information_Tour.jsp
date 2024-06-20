@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,31 +16,12 @@
         <script src="js/jquery.mobilemenu.js"></script>
         <script src="js/jquery.easing.1.3.js"></script>
         <script>
-            $(document).ready(function () {
-                $().UItoTop({easingType: 'easeOutQuart'});
-
-                // Check if the customer has made a deposit
-                var hasDeposit = ${customer.hasDeposit}; // Get deposit status from customer object
-
-                if (hasDeposit) {
-                    $('#depositInfo').text('Khách hàng ?ã ??t c?c');
-                    $('#depositInfo').css('color', '#e74c3c');
-                } else {
-                    $('#depositInfo').text('Khách hàng ch?a ??t c?c');
-                    $('#depositInfo').css('color', '#27ae60');
+            function doDelete(tour_name) {
+                var c = confirm("Are you sure?");
+                if (c) {
+                    window.location.href = "Delete_One_Tour?dname=" + encodeURIComponent(tour_name);
                 }
-
-                $('.delete').click(function (event) {
-                    if (hasDeposit) {
-                        event.preventDefault();
-                        alert('Khách hàng ?ã ??t c?c tour, không th? xóa');
-                    } else {
-                        // Proceed with the delete operation
-                        // Here you would typically make an AJAX call to delete the item from the database
-                        alert('Tour ?ã b? xóa');
-                    }
-                });
-            });
+            }
         </script>
         <!--[if lt IE 8]>
         <div style=' clear: both; text-align:center; position: relative;'>
@@ -161,6 +141,71 @@
                 background-color: #ecf0f1;
                 border-radius: 8px;
             }
+            h2 {
+                font-size: 24px;
+                color: #333;
+                margin-bottom: 10px;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0 0 20px 0;
+            }
+
+            ul li {
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+                color: #555;
+            }
+
+            ul li i {
+                font-size: 18px;
+                margin-right: 8px;
+                color: #3498db;
+            }
+
+            .pricee {
+                font-size: 24px;
+                color: #e67e22;
+                margin-bottom: 20px;
+            }
+
+            .pricee .discount {
+                font-size: 16px;
+                color: #e67e22;
+                margin-left: 10px;
+            }
+
+            .dates {
+                font-size: 16px;
+                color: #666;
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+
+            .descriptionn {
+                font-size: 16px;
+                color: #666;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+
+            .location {
+                font-size: 16px;
+                color: #666;
+                margin-bottom: 20px;
+            }
+
+            .customer-info {
+                padding: 10px;
+                background-color: #ecf0f1;
+                border-radius: 8px;
+                font-size: 16px;
+                color: #333;
+            }
+
         </style>
     </head>
     <body>
@@ -192,33 +237,48 @@
             </div>
         </header>
         <!--==============================Content=================================-->
-        <div class="content"><div class="ic">More Website Templates @ TemplateMonster.com - February 10, 2014!</div>
+        <div class="content">
+            <div class="ic">More Website Templates @ TemplateMonster.com - February 10, 2014!</div>
             <div class="container_12">
                 <div class="banners">
                     <div class="containerr">
                         <div class="contentt">
-                            <img src="images/sao.jpg" alt="Trishuli River Rafting">
+                            <img src="images/${in.image}" alt="Trishuli River Rafting">
                             <div class="detailss">
-                                <h2>Trishuli River Rafting</h2>
+                                <h2>${in.tour_name}</h2>
                                 <ul>
-                                    <li><i class="fa fa-map-marker"></i>Bhutan, India, Japan, London, Maldives, Morocco, Nepal, Paris, Prague, San Francisco, Tibet, Venice</li>
-                                    <li><i class="fa fa-clock-o"></i>15 Days</li>
+                                    <li><i class="fa fa-clock-o"></i>${in.number_day} days</li>
                                 </ul>
                                 <div class="pricee">
-                                    $1,300 <del>$1,700</del>
-                                    <span style="font-size: 16px; color: #e67e22; margin-left: 10px;">24% Off</span>
+                                    Price: ${in.total_price}
+                                    <span class="discount">24% Off</span>
+                                </div>
+                                <div class="dates">
+                                    Start date: ${in.start_date} <br>
+                                    End date: ${in.end_date} <br>
+                                    Min child: ${in.min_child} <br>
+                                    Max child: ${in.max_child}<br>
+                                    Min adult: ${in.min_adult}<br>
+                                    Max adult: ${in.max_adult}<br>
                                 </div>
                                 <div class="descriptionn">
-                                    The Annapurna Circuit is a trek within the Annapurna mountain range of central Nepal. The total length of the route varies between 160-230 km (100-145 mi),...
-                                </div>     
+                                    Description: ${in.description}
+                                </div>
+                                <div class="location">
+                                    Location: ${roleMap[in.tour_catetgory_id]}
+                                </div>
                                 <div class="customer-info">
                                     <p>Tên khách hàng: <c:out value="${customer.name}"/></p>
                                     <p id="depositInfo"></p>
                                 </div>
+
                                 <div class="buttons">
-                                    <button class="Update_One_Tour"><a href="Update_One_Tour?tname=${update.tour_name}">Update</a></button>
-                                   
-                                    <button class="delete">Delete</button>
+                                    <button class="update">
+                                        <a href="Update_One_Tour?tname=${in.tour_name}">Update</a>
+                                    </button>
+                                    <button class="delete">
+                                        <a href="#" onclick="doDelete('${in.tour_name}')">DELETE</a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -248,7 +308,7 @@
                 $('#bookingForm').bookingForm({
                     ownerEmail: '#'
                 });
-            })
+            });
         </script>
     </body>
 </html>

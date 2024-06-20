@@ -56,7 +56,7 @@
 <body>
     <div class="container">
         <h2>${message}</h2>
-        <a href="List_Tour_Admin">Add Another Tour</a>
+        <a href="List_Hotel_TravelAgent">Add Another Hotel</a>
     </div>
 </body>
 </html>

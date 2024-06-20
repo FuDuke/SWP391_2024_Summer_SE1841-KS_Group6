@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.Admin;
+package controller.TravelAgent.Hotel;
 
+import dal.HotelDAO;
 import dal.TourDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,16 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
-import model.Tour;
 
 /**
  *
  * @author tuanj
  */
-@WebServlet(name = "Information_Tour_Admin", urlPatterns = {"/Information_Tour_Admin"})
-public class Information_Tour_Admin extends HttpServlet {
+@WebServlet(name = "Delete_One_Hotel", urlPatterns = {"/Delete_One_Hotel"})
+public class Delete_One_Hotel extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +38,10 @@ public class Information_Tour_Admin extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Information_Tour_Admin</title>");
+            out.println("<title>Servlet Delete_One_Hotel</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Information_Tour_Admin at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Delete_One_Hotel at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,23 +59,14 @@ public class Information_Tour_Admin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-
-        TourDAO tourDB = new TourDAO();
-        Tour t = tourDB.getOne(name);
-
-        Map<Integer, String> roleMap = new HashMap<>();
-        roleMap.put(1, "Asia");
-        roleMap.put(2, "Europe");
-        roleMap.put(3, "Africa");
-        roleMap.put(4, "North America");
-        roleMap.put(5, "South America");
-        roleMap.put(6, "Oceania");
-        roleMap.put(7, "Antarctica");
-
-        request.setAttribute("roleMap", roleMap);
-        request.setAttribute("in", t);
-        request.getRequestDispatcher("./admin/Information_Tour.jsp").forward(request, response);
+        String hotelName = request.getParameter("hname"); // Correct parameter name
+        HotelDAO hotelDB = new HotelDAO();
+        boolean isDeleted = hotelDB.deleteHotel(hotelName); // Ensure deleteHotel method works correctly
+        if (isDeleted) {
+            response.sendRedirect("List_Hotel_TravelAgent"); // Redirect to list page on successful deletion
+        } else {
+            response.getWriter().println("Failed to delete the hotel. Please try again."); // Inform about failure
+        }
     }
 
     /**

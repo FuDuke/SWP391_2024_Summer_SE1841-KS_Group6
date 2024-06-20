@@ -23,11 +23,12 @@ public class Tour {
     private String number_day;
     private int account_id;
     private int tour_catetgory_id;
+    private String image;
 
     public Tour() {
     }
 
-    public Tour(String tour_name, String description, float deposit, String start_date, String end_date, String min_child, String max_child, String min_adult, String max_adult, float total_price, String number_day, int account_id, int tour_catetgory_id) {
+    public Tour(String tour_name, String description, float deposit, String start_date, String end_date, String min_child, String max_child, String min_adult, String max_adult, float total_price, String number_day, int account_id, int tour_catetgory_id, String image) {
         this.tour_name = tour_name;
         this.description = description;
         this.deposit = deposit;
@@ -41,7 +42,10 @@ public class Tour {
         this.number_day = number_day;
         this.account_id = account_id;
         this.tour_catetgory_id = tour_catetgory_id;
+        this.image = image;
     }
+
+    
 
     public String getTour_name() {
         return tour_name;
@@ -65,6 +69,14 @@ public class Tour {
 
     public void setDeposit(float deposit) {
         this.deposit = deposit;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getStart_date() {
@@ -149,8 +161,10 @@ public class Tour {
 
     @Override
     public String toString() {
-        return "Tour{" + "tour_name=" + tour_name + ", description=" + description + ", deposit=" + deposit + ", start_date=" + start_date + ", end_date=" + end_date + ", min_child=" + min_child + ", max_child=" + max_child + ", min_adult=" + min_adult + ", max_adult=" + max_adult + ", total_price=" + total_price + ", number_day=" + number_day + ", account_id=" + account_id + ", tour_catetgory_id=" + tour_catetgory_id + '}';
+        return "Tour{" + "tour_name=" + tour_name + ", description=" + description + ", deposit=" + deposit + ", start_date=" + start_date + ", end_date=" + end_date + ", min_child=" + min_child + ", max_child=" + max_child + ", min_adult=" + min_adult + ", max_adult=" + max_adult + ", total_price=" + total_price + ", number_day=" + number_day + ", account_id=" + account_id + ", tour_catetgory_id=" + tour_catetgory_id + ", image=" + image + '}';
     }
+
+    
 
    
 }

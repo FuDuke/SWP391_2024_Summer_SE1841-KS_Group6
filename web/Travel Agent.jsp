@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>TOUR FOR ADMIN</title>
+        <title>Travel Agent</title>
         <meta charset="utf-8">
         <meta name="format-detection" content="telephone=no" />
         <link rel="icon" href="images/favicon.ico">
@@ -46,9 +46,9 @@
                                 <li><a href="index-2.jsp">SPECIAL OFFERS</a></li>
                                 <li><a href="index-3.jsp">BLOG</a></li>
                                 <li><a href="index-4.jsp">CONTACTS</a></li>
-                                <li class="current"><a href="List_Tour_Admin">ADMIN</a></li>
-                                <li><a href="Travel Agent.jsp">Travel Agent</a></li>
-
+                                <li><a href="List_Tour_Admin">ADMIN</a></li>
+                                <li class="current"><a href="Travel Agent.jsp">Travel Agent</a></li>
+                                
                             </ul>
                         </nav>
                         <div class="clear"></div>
@@ -68,20 +68,10 @@
             <div class="container_12">
                 <div class="banners">
                     <div class="grid_12">
-                        <a href="add.jsp" class="btn-add-tour">Add Tour</a>
+                        <a href="List_Hotel_TravelAgent" class="btn-add-tour">Hotel</a>
+                        <a href="List_Restaurant_TravelAgent" class="btn-add-tour">Restaurant</a>
                     </div>
-                    <c:forEach var="a" items="${list}">
-                        <div class="grid_4">
-                            <div class="banner">
-                                <img src="images/${a.image}" alt="">
-                                <div class="label">
-                                    <div class="title">${a.tour_name}</div>
-                                    <div class="price">from<span>$ ${a.total_price}</span></div>
-                                    <a href="Information_Tour_Admin?name=${a.tour_name}">LEARN MORE</a>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
+                   
                     <div class="clear"></div>
                 </div>
             </div>
