@@ -13,20 +13,8 @@ public class Vehicle {
     private int service_category_id;
     private String vehicle_type;
     private String vehicle_name;
-    private int number_of_seat;
+    private int number_seat;
     private String phone;
-
-    public Vehicle(int vehicle_id, int service_category_id, String vehicle_type, String vehicle_name, int number_of_seat, String phone) {
-        this.vehicle_id = vehicle_id;
-        this.service_category_id = service_category_id;
-        this.vehicle_type = vehicle_type;
-        this.vehicle_name = vehicle_name;
-        this.number_of_seat = number_of_seat;
-        this.phone = phone;
-    }
-
-    public Vehicle() {
-    }
 
     public int getVehicle_id() {
         return vehicle_id;
@@ -60,12 +48,12 @@ public class Vehicle {
         this.vehicle_name = vehicle_name;
     }
 
-    public int getNumber_of_seat() {
-        return number_of_seat;
+    public int getNumber_seat() {
+        return number_seat;
     }
 
-    public void setNumber_of_seat(int number_of_seat) {
-        this.number_of_seat = number_of_seat;
+    public void setNumber_seat(int number_seat) {
+        this.number_seat = number_seat;
     }
 
     public String getPhone() {
@@ -76,4 +64,17 @@ public class Vehicle {
         this.phone = phone;
     }
 
+    public Vehicle(int vehicle_id, int service_category_id, String vehicle_type, String vehicle_name, int number_seat, String phone) {
+        this.vehicle_id = vehicle_id;
+        this.service_category_id = service_category_id;
+        this.vehicle_type = vehicle_type;
+        this.vehicle_name = vehicle_name;
+        this.number_seat = number_seat;
+        this.phone = phone;
+    }
+
+    public Vehicle() {
+    }
+
 }
+  

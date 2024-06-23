@@ -24,14 +24,7 @@
                 $().UItoTop({easingType: 'easeOutQuart'});
             });
         </script>
-        <script>
-            function doDelete(hotel_name) {
-                var c = confirm("Are you sure?");
-                if (c) {
-                    window.location.href = "Delete_One_Hotel?hname=" + encodeURIComponent(hotel_name);
-                }
-            }
-        </script>
+
         <!--[if lt IE 8]>
         <div style=' clear: both; text-align:center; position: relative;'>
                 <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
@@ -188,14 +181,11 @@
         </header>
         <!--==============================Content=================================-->
         <div class="content">
-            <div class="ic">More Website Templates @ TemplateMonster.com - February 10, 2014!</div>
             <div class="container_12">
                 <div class="banners">
-                    <a href="add_hotel.jsp" class="btn-add-tour">Add One Hotel</a>
                     <table class="F">
                         <thead>
                             <tr>
-                                <th>Vehicle ID</th>
                                 <th>Service Category ID</th>
                                 <th>Vehicle type</th>
                                 <th>Vehicle name</th>
@@ -204,21 +194,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="list" items="${list_vehicle}">
+                            <c:forEach var="l" items="${list_vehicle}">
                                 <tr>
-                                    <td>${list.vehicle_id}</td>
-                                    <td>${list.service_category_id}</td>
-                                    <td>${list.vehicle_type}</td>
-                                    <td>${list.vehicle_name}</td>
-                                    <td>${list.number_seat}</td>
-                                    <td>${list.phone}</td>
-<!--                                    <td><a href="Update_One_Hotel?hname=${l.hotel_name}"><i class="fa-solid fa-pen-to-square" style="color: chocolate"></i></a></td>
-                                    <td><a href="#" onclick="doDelete('${l.hotel_name}')"><i class="fa-solid fa-trash" style="color: chocolate"></i></a></td>-->
+                                    <td>${l.service_category_id}</td>
+                                    <td>${l.vehicle_type}</td>
+                                    <td>${l.vehicle_name}</td>
+                                    <td>${l.number_seat}</td>
+                                    <td>${l.phone}</td>
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
-                    <div class="clear"></div>
                 </div>
             </div>
         </div>

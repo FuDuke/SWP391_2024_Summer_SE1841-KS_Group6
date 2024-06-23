@@ -24,16 +24,15 @@ public class VehicleDAO extends DBContext implements VehecleRepo {
     public ArrayList<Vehicle> getList() {
         ArrayList<Vehicle> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Vehicle";
+            String sql = "select * from Vehicle";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Vehicle t = new Vehicle();
-                t.setVehicle_id(rs.getInt("vehicle_id"));
                 t.setService_category_id(rs.getInt("service_category_id"));
                 t.setVehicle_type(rs.getString("vehicle_type"));
                 t.setVehicle_name(rs.getString("vehicle_name"));
-                t.setNumber_of_seat(rs.getInt("number_seat"));
+                t.setNumber_seat(rs.getInt("number_seat"));
                 t.setPhone(rs.getString("phone"));
                 list.add(t);
             }
