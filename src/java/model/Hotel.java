@@ -18,11 +18,12 @@ public class Hotel {
     private String number_people;
     private String description;
     private String phone;
+    private String image;
 
     public Hotel() {
     }
 
-    public Hotel(String hotel_name, int service_category_id, float daily_price, float holiday_price, String number_room, String number_people, String description, String phone) {
+    public Hotel(String hotel_name, int service_category_id, float daily_price, float holiday_price, String number_room, String number_people, String description, String phone, String image) {
         this.hotel_name = hotel_name;
         this.service_category_id = service_category_id;
         this.daily_price = daily_price;
@@ -31,7 +32,10 @@ public class Hotel {
         this.number_people = number_people;
         this.description = description;
         this.phone = phone;
+        this.image = image;
     }
+
+    
 
     public String getHotel_name() {
         return hotel_name;
@@ -96,10 +100,20 @@ public class Hotel {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+    
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     @Override
     public String toString() {
-        return "Hotel{" + "hotel_name=" + hotel_name + ", service_category_id=" + service_category_id + ", daily_price=" + daily_price + ", holiday_price=" + holiday_price + ", number_room=" + number_room + ", number_people=" + number_people + ", description=" + description + ", phone=" + phone + '}';
+        return "Hotel{" + "hotel_name=" + hotel_name + ", service_category_id=" + service_category_id + ", daily_price=" + daily_price + ", holiday_price=" + holiday_price + ", number_room=" + number_room + ", number_people=" + number_people + ", description=" + description + ", phone=" + phone + ", image=" + image + '}';
     }
+    
+    
 
 }

@@ -35,6 +35,7 @@ public class RestaurantDAO extends DBContext implements RestaurantRepo {
                 t.setTime_close(rs.getString("time_close"));
                 t.setTime_open(rs.getString("time_open"));
                 t.setDescription(rs.getString("description"));
+                t.setImage(rs.getString("image"));
                 list.add(t);
             }
         } catch (Exception e) {
@@ -58,7 +59,7 @@ public class RestaurantDAO extends DBContext implements RestaurantRepo {
                 t.setTime_close(rs.getString("time_close"));
                 t.setTime_open(rs.getString("time_open"));
                 t.setDescription(rs.getString("description"));
-
+                t.setImage(rs.getString("image"));
                 return t;
             }
         } catch (Exception e) {
@@ -68,16 +69,17 @@ public class RestaurantDAO extends DBContext implements RestaurantRepo {
     }
 
     @Override
-    public boolean addTour(Restaurant r) {
+    public boolean addRestaurant(Restaurant r) {
         boolean isSuccess = false;
         String sql = "INSERT INTO [dbo].[Restaurant]\n"
                 + "           ([service_category_id]\n"
                 + "           ,[restaurant_name]\n"
                 + "           ,[time_close]\n"
                 + "           ,[time_open]\n"
-                + "           ,[description])\n"
+                + "           ,[description]\n" // Move this bracket to the correct position
+                + "           ,[image])\n" // This should be part of the column list
                 + "     VALUES\n"
-                + "           (?,?,?,?,?)";
+                + "           (?,?,?,?,?,?)";
 
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setInt(1, r.getService_category_id());
@@ -85,7 +87,7 @@ public class RestaurantDAO extends DBContext implements RestaurantRepo {
             stm.setString(3, r.getTime_close());
             stm.setString(4, r.getTime_open());
             stm.setString(5, r.getDescription());
-
+            stm.setString(6, r.getImage());
             isSuccess = stm.executeUpdate() == 1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,7 +96,7 @@ public class RestaurantDAO extends DBContext implements RestaurantRepo {
     }
 
     @Override
-    public boolean editTour(Restaurant r) {
+    public boolean editRestaurant(Restaurant r) {
         boolean isSuccess = false;
         String sql = "UPDATE [dbo].[Restaurant]\n"
                 + "   SET [service_category_id] = ?\n"
@@ -102,6 +104,7 @@ public class RestaurantDAO extends DBContext implements RestaurantRepo {
                 + "      ,[time_close] = ?\n"
                 + "      ,[time_open] = ?\n"
                 + "      ,[description] = ?\n"
+                + "      ,[image] = ?\n"
                 + " WHERE restaurant_name = ?";
 
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
@@ -110,7 +113,8 @@ public class RestaurantDAO extends DBContext implements RestaurantRepo {
             stm.setString(3, r.getTime_close());
             stm.setString(4, r.getTime_open());
             stm.setString(5, r.getDescription());
-            stm.setString(6, r.getRestaurant_name());
+            stm.setString(6, r.getImage());
+            stm.setString(7, r.getRestaurant_name());
             isSuccess = stm.executeUpdate() == 1;
         } catch (SQLException ex) {
             Logger.getLogger(TourDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -119,11 +123,11 @@ public class RestaurantDAO extends DBContext implements RestaurantRepo {
     }
 
     @Override
-    public boolean deleteTour(String name) {
-         boolean isSuccess = false;
+    public boolean deleteRestaurant(String name) {
+        boolean isSuccess = false;
         String sql = """
                  DELETE FROM [dbo].[Restaurant]
-                 WHERE hotel_name = ?""";
+                 WHERE restaurant_name = ?""";
 
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setString(1, name);
@@ -134,10 +138,11 @@ public class RestaurantDAO extends DBContext implements RestaurantRepo {
 
         return isSuccess;
     }
+
+    public static void main(String[] args) {
+        RestaurantDAO r = new RestaurantDAO();
     
-     public static void main(String[] args) {
-        RestaurantDAO tt = new RestaurantDAO();
-        Restaurant r = new Restaurant(2, "Bia Viet Ha", "21:00", "7:00", "bia nhu lon");
-        System.out.println(tt.addTour(r));
+        System.out.println(r.deleteRestaurant("bia trau tuoi 2"));
     }
+
 }

@@ -92,6 +92,7 @@ public class Update_One_Hotel extends HttpServlet {
             String number_people = request.getParameter("number_people");
             String description = request.getParameter("description");
             String phone = request.getParameter("phone");
+            String image = request.getParameter("image");
 
             // Create Tour object
             Hotel h = new Hotel();
@@ -103,6 +104,7 @@ public class Update_One_Hotel extends HttpServlet {
             h.setNumber_people(number_people);
             h.setDescription(description);
             h.setPhone(phone);
+            h.setImage(image);
             HotelDAO hotel = new HotelDAO();
             hotel.editHotel(h);
             response.sendRedirect("List_Hotel_TravelAgent");

@@ -14,18 +14,20 @@ public class Restaurant {
     String time_close;
     String time_open;
     String description;
-
+    String image;
     public Restaurant() {
     }
 
-    public Restaurant(int service_category_id, String restaurant_name, String time_close, String time_open, String description) {
+    public Restaurant(int service_category_id, String restaurant_name, String time_close, String time_open, String description, String image) {
         this.service_category_id = service_category_id;
         this.restaurant_name = restaurant_name;
         this.time_close = time_close;
         this.time_open = time_open;
         this.description = description;
+        this.image = image;
     }
 
+    
     public int getService_category_id() {
         return service_category_id;
     }
@@ -66,9 +68,19 @@ public class Restaurant {
         this.description = description;
     }
 
+   
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
-        return "Restaurant{" + "service_category_id=" + service_category_id + ", restaurant_name=" + restaurant_name + ", time_close=" + time_close + ", time_open=" + time_open + ", description=" + description + '}';
+        return "Restaurant{" + "service_category_id=" + service_category_id + ", restaurant_name=" + restaurant_name + ", time_close=" + time_close + ", time_open=" + time_open + ", description=" + description + ", image=" + image + '}';
     }
     
     

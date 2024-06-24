@@ -59,13 +59,13 @@ public class Delete_One_Hotel extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String hotelName = request.getParameter("hname"); // Correct parameter name
+        String hotelName = request.getParameter("hname"); // Parameter name should match
         HotelDAO hotelDB = new HotelDAO();
-        boolean isDeleted = hotelDB.deleteHotel(hotelName); // Ensure deleteHotel method works correctly
+        boolean isDeleted = hotelDB.deleteHotel(hotelName); // Check if delete operation is implemented correctly
         if (isDeleted) {
-            response.sendRedirect("List_Hotel_TravelAgent"); // Redirect to list page on successful deletion
+            response.sendRedirect("List_Hotel_TravelAgent"); // Redirect to list page after successful deletion
         } else {
-            response.getWriter().println("Failed to delete the hotel. Please try again."); // Inform about failure
+            response.getWriter().println("Failed to delete the hotel. Please try again."); // Display error message if deletion fails
         }
     }
 

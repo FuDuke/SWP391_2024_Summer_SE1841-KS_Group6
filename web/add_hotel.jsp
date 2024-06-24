@@ -1,4 +1,3 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,26 +19,73 @@
             $(document).ready(function () {
                 $().UItoTop({easingType: 'easeOutQuart'});
 
-                // Automatically calculate deposit when total price is entered
-                document.getElementById('total_price').addEventListener('input', function () {
-                    const totalPrice = parseFloat(this.value);
-                    if (!isNaN(totalPrice)) {
-                        document.getElementById('deposit').value = (totalPrice * 0.3).toFixed(2);
+                // Automatically calculate holiday price when daily price is entered
+                document.getElementById('daily_price').addEventListener('input', function () {
+                    const dailyPrice = parseFloat(this.value);
+                    if (!isNaN(dailyPrice) && dailyPrice > 100) {
+                        document.getElementById('holiday_price').value = (dailyPrice * 0.3).toFixed(2);
                     } else {
-                        document.getElementById('deposit').value = '';
+                        document.getElementById('holiday_price').value = '';
                     }
                 });
             });
 
             function validateForm() {
+                // Service Category ID validation
+                const serviceCategory = document.getElementById('service_category_id').value;
+                if (serviceCategory !== '1') {
+                    alert("Please select a valid service category (Hotel).");
+                    return false;
+                }
+
                 // Description validation
-                
+                const description = document.forms["hotelForm"]["description"].value;
+                if (description.split(' ').length < 10) {
+                    alert("Description must be greater than 10 words.");
+                    return false;
+                }
+
+                // Daily Price validation
+                const dailyPrice = document.forms["hotelForm"]["daily_price"].value;
+                if (isNaN(dailyPrice) || dailyPrice <= 100) {
+                    alert("Daily Price must be a number greater than 100.");
+                    return false;
+                }
+
+                // Number of Rooms validation
+                const numberRoom = document.forms["hotelForm"]["number_room"].value;
+                if (isNaN(numberRoom) || numberRoom < 20 || numberRoom > 50) {
+                    alert("Number of Rooms must be a number between 20 and 50.");
+                    return false;
+                }
+
+                // Number of People validation
+                const numberPeople = document.forms["hotelForm"]["number_people"].value;
+                if (numberPeople !== '2' && numberPeople !== '3') {
+                    alert("Number of People must be 2 or 3.");
+                    return false;
+                }
+
+                // Phone validation
+                const phone = document.forms["hotelForm"]["phone"].value;
+                const phonePattern = /^(\d{4})-?(\d{3})-?(\d{3})$/;
+                if (!phonePattern.test(phone)) {
+                    alert("Phone must be a valid phone number with 10 or 11 digits and formatted with dashes.");
+                    return false;
+                }
 
                 return true;
             }
 
-            function validateNumberInput(event) {
-               
+            function formatPhoneNumber(event) {
+                let input = event.target.value.replace(/\D/g, '');
+                if (input.length > 4) {
+                    input = input.replace(/(\d{4})(\d+)/, '$1-$2');
+                }
+                if (input.length > 8) {
+                    input = input.replace(/(\d{4})-(\d{3})(\d+)/, '$1-$2-$3');
+                }
+                event.target.value = input;
             }
         </script>
         <!--[if lt IE 8]>
@@ -177,15 +223,19 @@
                         </tr>
                         <tr>
                             <td>Service Category ID:</td>
-                            <td><input type="text" name="service_category_id" required></td>
+                            <td>
+                                <select name="service_category_id" id="service_category_id" required>
+                                    <option value="1">Hotel</option>
+                                </select>
+                            </td
                         </tr>
                         <tr>
                             <td>Daily Price:</td>
-                            <td><input type="text" name="daily_price" required></td>
+                            <td><input type="text" name="daily_price" id="daily_price" required></td>
                         </tr>
                         <tr>
                             <td>Holiday Price:</td>
-                            <td><input type="text" name="holiday_price" required></td>
+                            <td><input type="text" name="holiday_price" id="holiday_price" readonly></td>
                         </tr>
                         <tr>
                             <td>Number of Rooms:</td>
@@ -193,25 +243,32 @@
                         </tr>
                         <tr>
                             <td>Number of People:</td>
-                            <td><input type="text" name="number_people" required></td>
+                            <td>
+                                <select name="number_people" id="number_people" required>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>Description:</td>
-                            <td><input type="text" name="description" required></td>
+                            <td><textarea name="description" rows="5" required></textarea></td>
                         </tr>
                         <tr>
                             <td>Phone:</td>
-                            <td><input type="text" name="phone" required></td>
+                            <td><input type="text" name="phone" id="phone" oninput="formatPhoneNumber(event)" required></td>
+                        </tr>
+                        <tr>
+                            <td>Image:</td>
+                            <td><input type="file" name="image" id="image" required></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="buttons"><input type="submit" value="Add Hotel"></td>
                         </tr>
                     </table>
                 </form>
-
             </div>
         </div>
-
         <!--==============================footer=================================-->
         <footer>
             <div class="container_12">

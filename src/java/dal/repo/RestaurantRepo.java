@@ -14,7 +14,7 @@ import model.Restaurant;
 public interface RestaurantRepo {
     public ArrayList<Restaurant> getList();
     public Restaurant getOne(String name);
-    public boolean addTour(Restaurant r);
-    public boolean editTour(Restaurant r);
-    public boolean deleteTour(String name);
+    public boolean addRestaurant(Restaurant r);
+    public boolean editRestaurant(Restaurant r);
+    public boolean deleteRestaurant(String name);
 }

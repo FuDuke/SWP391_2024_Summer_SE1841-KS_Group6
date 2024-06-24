@@ -4,6 +4,7 @@
  */
 package controller.TravelAgent.Restaurant;
 
+import dal.RestaurantDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -57,7 +58,8 @@ public class List_Restaurant_TravelAgent extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setAttribute("restaurant", new RestaurantDAO().getList());
+        request.getRequestDispatcher("/travel agent/restaurant.jsp").forward(request, response);
     }
 
     /**

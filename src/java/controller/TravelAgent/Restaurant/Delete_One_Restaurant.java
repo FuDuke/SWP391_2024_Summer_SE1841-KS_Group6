@@ -2,11 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.TravelAgent.Hotel;
+package controller.TravelAgent.Restaurant;
 
-import dal.HotelDAO;
+import dal.RestaurantDAO;
 import dal.TourDAO;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,15 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Hotel;
-import model.Tour;
 
 /**
  *
  * @author tuanj
  */
-@WebServlet(name = "Add_One_Hotel", urlPatterns = {"/Add_One_Hotel"})
-public class Add_One_Hotel extends HttpServlet {
+@WebServlet(name = "Delete_One_Restaurant", urlPatterns = {"/Delete_One_Restaurant"})
+public class Delete_One_Restaurant extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +38,10 @@ public class Add_One_Hotel extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Add_One_Hotel</title>");
+            out.println("<title>Servlet Delete_One_Restaurant</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Add_One_Hotel at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Delete_One_Restaurant at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,40 +59,16 @@ public class Add_One_Hotel extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String hotel_name = request.getParameter("hotel_name");
-        int service_category_id = Integer.parseInt(request.getParameter("service_category_id"));
-        float daily_price = Float.parseFloat(request.getParameter("daily_price"));
-        float holiday_price = Float.parseFloat(request.getParameter("holiday_price"));
-        String number_room = request.getParameter("number_room");
-        String number_people = request.getParameter("number_people");
-        String description = request.getParameter("description");
-        String phone = request.getParameter("phone");
-        String image = request.getParameter("image");
-
-        // Create Hotel object
-        Hotel h = new Hotel();
-        h.setHotel_name(hotel_name);
-        h.setService_category_id(service_category_id);
-        h.setDaily_price(daily_price);
-        h.setHoliday_price(holiday_price);
-        h.setNumber_room(number_room);
-        h.setNumber_people(number_people);
-        h.setDescription(description);
-        h.setPhone(phone);
-        h.setImage(image);
-
-        // Add hotel to the database
-        HotelDAO hotelDAO = new HotelDAO();
-        boolean isSuccess = hotelDAO.addHotel(h);
-
-        // Forward to a success page or show an error message
-        if (isSuccess) {
-            request.setAttribute("message", "Hotel added successfully!");
+        String name = request.getParameter("dname");
+        // Thực hiện xóa tour từ cơ sở dữ liệu
+        RestaurantDAO tourDB = new RestaurantDAO();
+        boolean isDeleted = tourDB.deleteRestaurant(name);
+        // Điều hướng trở lại trang danh sách tour
+        if (isDeleted) {
+            response.sendRedirect("List_Restaurant_TravelAgent");
         } else {
-            request.setAttribute("message", "Failed to add hotel. Please try again.");
+            response.getWriter().println("Failed to delete the tour. Please try again.");
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("resultHotel.jsp");
-        dispatcher.forward(request, response);
     }
 
     /**

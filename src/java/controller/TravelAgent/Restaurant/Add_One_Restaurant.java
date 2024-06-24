@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.TravelAgent.Hotel;
+package controller.TravelAgent.Restaurant;
 
-import dal.HotelDAO;
+import dal.RestaurantDAO;
 import dal.TourDAO;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -14,15 +14,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Hotel;
+import model.Restaurant;
 import model.Tour;
 
 /**
  *
  * @author tuanj
  */
-@WebServlet(name = "Add_One_Hotel", urlPatterns = {"/Add_One_Hotel"})
-public class Add_One_Hotel extends HttpServlet {
+@WebServlet(name = "Add_One_Restaurant", urlPatterns = {"/Add_One_Restaurant"})
+public class Add_One_Restaurant extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +41,10 @@ public class Add_One_Hotel extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Add_One_Hotel</title>");
+            out.println("<title>Servlet Add_One_Restaurant</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Add_One_Hotel at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Add_One_Restaurant at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,39 +62,32 @@ public class Add_One_Hotel extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String hotel_name = request.getParameter("hotel_name");
+        String restaurant_name = request.getParameter("restaurant_name");
         int service_category_id = Integer.parseInt(request.getParameter("service_category_id"));
-        float daily_price = Float.parseFloat(request.getParameter("daily_price"));
-        float holiday_price = Float.parseFloat(request.getParameter("holiday_price"));
-        String number_room = request.getParameter("number_room");
-        String number_people = request.getParameter("number_people");
+        String time_open = request.getParameter("time_open");
+        String time_close = request.getParameter("time_close");
         String description = request.getParameter("description");
-        String phone = request.getParameter("phone");
         String image = request.getParameter("image");
+        // Create Tour object
+        Restaurant res = new Restaurant();
+        res.setRestaurant_name(restaurant_name);
+        res.setService_category_id(service_category_id);
+        res.setTime_open(time_open);
+        res.setTime_close(time_close);
+        res.setDescription(description);
+        res.setImage(image);
 
-        // Create Hotel object
-        Hotel h = new Hotel();
-        h.setHotel_name(hotel_name);
-        h.setService_category_id(service_category_id);
-        h.setDaily_price(daily_price);
-        h.setHoliday_price(holiday_price);
-        h.setNumber_room(number_room);
-        h.setNumber_people(number_people);
-        h.setDescription(description);
-        h.setPhone(phone);
-        h.setImage(image);
-
-        // Add hotel to the database
-        HotelDAO hotelDAO = new HotelDAO();
-        boolean isSuccess = hotelDAO.addHotel(h);
+        RestaurantDAO tourDAO = new RestaurantDAO();
+        boolean isSuccess = tourDAO.addRestaurant(res);
 
         // Forward to a success page or show an error message
         if (isSuccess) {
-            request.setAttribute("message", "Hotel added successfully!");
+            request.setAttribute("message", "Tour added successfully!");
+
         } else {
-            request.setAttribute("message", "Failed to add hotel. Please try again.");
+            request.setAttribute("message", "Failed to add tour. Please try again.");
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("resultHotel.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("resultRes.jsp");
         dispatcher.forward(request, response);
     }
 

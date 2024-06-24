@@ -5,8 +5,7 @@
 package controller.TravelAgent.Hotel;
 
 import dal.HotelDAO;
-import dal.TourDAO;
-import jakarta.servlet.RequestDispatcher;
+import dal.RestaurantDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,15 +13,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 import model.Hotel;
-import model.Tour;
+import model.Restaurant;
 
 /**
  *
  * @author tuanj
  */
-@WebServlet(name = "Add_One_Hotel", urlPatterns = {"/Add_One_Hotel"})
-public class Add_One_Hotel extends HttpServlet {
+@WebServlet(name = "Information_Hotel_TravelAgent", urlPatterns = {"/Information_Hotel_TravelAgent"})
+public class Information_Hotel_TravelAgent extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +42,10 @@ public class Add_One_Hotel extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Add_One_Hotel</title>");
+            out.println("<title>Servlet Information_Hotel_TravelAgent</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Add_One_Hotel at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Information_Hotel_TravelAgent at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,40 +63,20 @@ public class Add_One_Hotel extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String hotel_name = request.getParameter("hotel_name");
-        int service_category_id = Integer.parseInt(request.getParameter("service_category_id"));
-        float daily_price = Float.parseFloat(request.getParameter("daily_price"));
-        float holiday_price = Float.parseFloat(request.getParameter("holiday_price"));
-        String number_room = request.getParameter("number_room");
-        String number_people = request.getParameter("number_people");
-        String description = request.getParameter("description");
-        String phone = request.getParameter("phone");
-        String image = request.getParameter("image");
+        String name = request.getParameter("hname");
 
-        // Create Hotel object
-        Hotel h = new Hotel();
-        h.setHotel_name(hotel_name);
-        h.setService_category_id(service_category_id);
-        h.setDaily_price(daily_price);
-        h.setHoliday_price(holiday_price);
-        h.setNumber_room(number_room);
-        h.setNumber_people(number_people);
-        h.setDescription(description);
-        h.setPhone(phone);
-        h.setImage(image);
+        HotelDAO tourDB = new HotelDAO();
+        Hotel h = tourDB.getOne(name);
 
-        // Add hotel to the database
-        HotelDAO hotelDAO = new HotelDAO();
-        boolean isSuccess = hotelDAO.addHotel(h);
+        Map<Integer, String> roleMap = new HashMap<>();
+        roleMap.put(1, "Hotel");
+        roleMap.put(2, "Restaurant");
+        roleMap.put(3, "Vehicle");
 
-        // Forward to a success page or show an error message
-        if (isSuccess) {
-            request.setAttribute("message", "Hotel added successfully!");
-        } else {
-            request.setAttribute("message", "Failed to add hotel. Please try again.");
-        }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("resultHotel.jsp");
-        dispatcher.forward(request, response);
+        request.setAttribute("roleMap", roleMap);
+        request.setAttribute("ho", h);
+        request.getRequestDispatcher("./travel agent/Information_Hotel.jsp").forward(request, response);
+
     }
 
     /**

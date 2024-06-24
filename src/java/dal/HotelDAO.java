@@ -38,6 +38,7 @@ public class HotelDAO extends DBContext implements HotelRepo {
                 t.setNumber_people(rs.getString("number_people"));
                 t.setDescription(rs.getString("description"));
                 t.setPhone(rs.getString("phone"));
+                t.setImage(rs.getString("image"));
 
                 list.add(t);
             }
@@ -65,6 +66,7 @@ public class HotelDAO extends DBContext implements HotelRepo {
                 t.setNumber_people(rs.getString("number_people"));
                 t.setDescription(rs.getString("description"));
                 t.setPhone(rs.getString("phone"));
+                t.setImage(rs.getString("image"));
                 return t;
             }
         } catch (Exception e) {
@@ -78,8 +80,8 @@ public class HotelDAO extends DBContext implements HotelRepo {
         boolean isSuccess = false;
         String sql = "INSERT INTO [dbo].[Hotel] "
                 + "([hotel_name], [service_category_id], [daily_price], [holiday_price], "
-                + "[number_room], [number_people], [description], [phone]) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                + "[number_room], [number_people], [description], [phone],[image] ) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setString(1, t.getHotel_name());
@@ -90,6 +92,8 @@ public class HotelDAO extends DBContext implements HotelRepo {
             stm.setString(6, t.getNumber_people());
             stm.setString(7, t.getDescription());
             stm.setString(8, t.getPhone());
+            stm.setString(9, t.getImage());
+            
 
             isSuccess = stm.executeUpdate() == 1;
         } catch (Exception e) {
@@ -110,6 +114,7 @@ public class HotelDAO extends DBContext implements HotelRepo {
                 + "      ,[number_people] = ?\n"
                 + "	  ,[description] = ?\n"
                 + "      ,[phone] = ?\n"
+                + "      ,[image] = ?\n"
                 + " WHERE hotel_name = ?";
 
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
@@ -121,7 +126,9 @@ public class HotelDAO extends DBContext implements HotelRepo {
             stm.setString(6, t.getNumber_people());
             stm.setString(7, t.getDescription());
             stm.setString(8, t.getPhone());
-            stm.setString(9, t.getHotel_name());
+            stm.setString(9, t.getImage());
+            
+            stm.setString(10, t.getHotel_name());
             isSuccess = stm.executeUpdate() == 1;
         } catch (SQLException ex) {
             Logger.getLogger(TourDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,10 +150,10 @@ public class HotelDAO extends DBContext implements HotelRepo {
 
         return isSuccess;
     }
-
     public static void main(String[] args) {
-        HotelDAO tt = new HotelDAO();
-        Hotel h = new Hotel("Hoang DInh", 1, 2000, 3000, "2", "2", "o quy hop nghe an", "555-1000");
-        System.out.println(tt.deleteHotel("korea"));
+        HotelDAO h = new HotelDAO();
+        Hotel ho = new Hotel("tuan", 1, 2000, 1000, "20", "2", "aaaaaa", "098124121", "ho4-4.jpg");
+        System.out.println(h.deleteHotel("tuan"));
     }
+    
 }
