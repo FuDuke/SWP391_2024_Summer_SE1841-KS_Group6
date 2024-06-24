@@ -16,5 +16,5 @@ public interface HotelRepo {
     public Hotel getOne(String name);
     public boolean addHotel(Hotel t);
     public boolean editHotel(Hotel t);
-    public boolean deleteHotel(String name);
+    public boolean deleteHotel(String name);/////
 }
