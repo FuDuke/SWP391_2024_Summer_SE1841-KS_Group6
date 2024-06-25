@@ -16,4 +16,5 @@ public interface VehecleRepo {
     public boolean addVehicle(Vehicle t);
     public boolean editVehicle(Vehicle t);
     public boolean deleteVehicle(int id);
+     public Vehicle getOne(int id);
 }

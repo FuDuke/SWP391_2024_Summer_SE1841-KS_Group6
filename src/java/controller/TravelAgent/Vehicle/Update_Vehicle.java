@@ -12,13 +12,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.*;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "Delete_Vehicle", urlPatterns = {"/Delete_Vehicle"})
-public class Delete_Vehicle extends HttpServlet {
+@WebServlet(name = "Update_Vehicle", urlPatterns = {"/Update_Vehicle"})
+public class Update_Vehicle extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,35 +38,23 @@ public class Delete_Vehicle extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Delete_Vehicle</title>");            
+            out.println("<title>Servlet Update_Vehicle</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Delete_Vehicle at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Update_Vehicle at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int vehicle_id = Integer.parseInt(request.getParameter("vid")) ; // Correct parameter name
-        VehicleDAO vehicleDB = new VehicleDAO();
-        boolean isDeleted = vehicleDB.deleteVehicle(vehicle_id); // Ensure deleteHotel method works correctly
-        if (isDeleted) {
-            response.sendRedirect("List_Vehicle_TravelAgent"); // Redirect to list page on successful deletion
-        } else {
-            response.getWriter().println("Failed to delete the vehicle. Please try again."); // Inform about failure
-        }
+        int id = Integer.parseInt(request.getParameter("vid"));
+        VehicleDAO dao = new VehicleDAO();
+        Vehicle v = dao.getOne(id);
+        request.setAttribute("update", v);
+        request.getRequestDispatcher("UpdateVehicle.jsp").forward(request, response);
     }
 
     /**
@@ -79,7 +68,30 @@ public class Delete_Vehicle extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            String vehicle_name = request.getParameter("vehicle_name");
+            int service_category_id = Integer.parseInt(request.getParameter("service_category_id"));
+
+            String vehicle_type = request.getParameter("vehicle_type");
+            int number_seat = Integer.parseInt(request.getParameter("number_seat"));
+            String phone = request.getParameter("phone");
+
+            // Create Tour object
+            Vehicle v = new Vehicle();
+            v.setVehicle_name(vehicle_name);
+            v.setNumber_seat(number_seat);
+            v.setPhone(phone);
+            v.setService_category_id(service_category_id);
+            v.setVehicle_type(vehicle_type);
+            VehicleDAO vehicle = new VehicleDAO();
+            vehicle.editVehicle(v);
+            response.sendRedirect("List_Vehicle_TravelAgent");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("errorPage.jsp");
+        }
+
     }
 
     /**
