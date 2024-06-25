@@ -76,7 +76,7 @@ public class VehicleDAO extends DBContext implements VehecleRepo {
                 + "      ,[vehicle_name] = ?\n"
                 + "      ,[number_seat] = ?\n"
                 + "      ,[phone] = ?\n"
-                + " WHERE hotel_name = ?";
+                + " WHERE vehicle_id = ?";
 
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setInt(1, t.getService_category_id());
@@ -84,9 +84,10 @@ public class VehicleDAO extends DBContext implements VehecleRepo {
             stm.setString(3, t.getVehicle_name());
             stm.setInt(4, t.getNumber_seat());
             stm.setString(5, t.getPhone());
+            stm.setInt(6, t.getVehicle_id());
             isSuccess = stm.executeUpdate() == 1;
         } catch (SQLException ex) {
-            Logger.getLogger(TourDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VehicleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return isSuccess;
     }
@@ -115,9 +116,10 @@ public class VehicleDAO extends DBContext implements VehecleRepo {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
-            
             while (rs.next()) {
                 Vehicle t = new Vehicle();
+                t.setVehicle_id(rs.getInt("vehicle_id"));
+                t.setNumber_seat(rs.getInt("number_seat"));
                 t.setNumber_seat(rs.getInt("number_seat"));
                 t.setService_category_id(rs.getInt("service_category_id"));
                 t.setVehicle_name(rs.getString("vehicle_name"));
