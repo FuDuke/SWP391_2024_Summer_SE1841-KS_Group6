@@ -19,8 +19,8 @@ public class DBContext {
         try {
             //Change the username password and url to connect your own database
             String username = "sa";
-            String password = "12345";
-            String url = "jdbc:sqlserver://ATUANHU\\atuanhu:1433;databaseName=TravelService;encrypt=true;trustServerCertificate=true;useUnicode=true;characterEncoding=UTF-8;";
+            String password = "123";
+            String url = "jdbc:sqlserver://ANTHUYEN:1433;databaseName=TravelService;encrypt=true;trustServerCertificate=true;useUnicode=true;characterEncoding=UTF-8;";
 
             //Truoức khi thi phải thêm vào
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

@@ -70,6 +70,8 @@
                     <div class="grid_12">
                         <a href="List_Hotel_TravelAgent" class="btn-add-tour">Hotel</a>
                         <a href="List_Restaurant_TravelAgent" class="btn-add-tour">Restaurant</a>
+                        <a href="List_Vehicle_TravelAgent" class="btn-add-tour">Vehicle</a>
+                        
                     </div>
                    
                     <div class="clear"></div>
