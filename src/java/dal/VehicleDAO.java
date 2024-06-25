@@ -135,7 +135,6 @@ public class VehicleDAO extends DBContext implements VehecleRepo {
     
     public static void main(String[] args) {
         HotelDAO tt = new HotelDAO();
-        Hotel h = new Hotel("Hoang DInh", 1, 2000, 3000, "2", "2", "o quy hop nghe an", "555-1000");
         System.out.println(tt.deleteHotel("korea"));
     }
 }
