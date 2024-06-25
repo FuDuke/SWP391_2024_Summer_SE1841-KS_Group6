@@ -183,6 +183,7 @@
         <div class="content">
             <div class="container_12">
                 <div class="banners">
+                    <a href="AddVehicle.jsp" class="btn-add-tour">Add Vehicle</a>
                     <table class="F">
                         <thead>
                             <tr>
@@ -191,6 +192,8 @@
                                 <th>Vehicle name</th>
                                 <th>Number of seat</th>
                                 <th>Phone</th>
+                                <th>Update</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -201,6 +204,8 @@
                                     <td>${l.vehicle_name}</td>
                                     <td>${l.number_seat}</td>
                                     <td>${l.phone}</td>
+                                    <td><a href="#"><i class="fa-solid fa-pen-to-square" style="color: chocolate"></i></a></td>
+                                    <td><a href="#"><i class="fa-solid fa-trash" style="color: chocolate"></i></a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>

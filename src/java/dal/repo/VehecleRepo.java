@@ -15,5 +15,5 @@ public interface VehecleRepo {
       public ArrayList<Vehicle> getList();
     public boolean addVehicle(Vehicle t);
     public boolean editVehicle(Vehicle t);
-    public boolean deleteVehicle(String name);
+    public boolean deleteVehicle(int id);
 }

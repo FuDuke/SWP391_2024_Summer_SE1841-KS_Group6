@@ -45,25 +45,24 @@ public class VehicleDAO extends DBContext implements VehecleRepo {
     @Override
     public boolean addVehicle(Vehicle t) {
         boolean isSuccess = false;
-//        String sql = "INSERT INTO [dbo].[Hotel] "
-//                + "([hotel_name], [service_category_id], [daily_price], [holiday_price], "
-//                + "[number_room], [number_people], [description], [phone]) "
-//                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-//
-//        try (PreparedStatement stm = connection.prepareStatement(sql)) {
-//            stm.setString(1, t.getHotel_name());
-//            stm.setInt(2, t.getService_category_id());
-//            stm.setFloat(3, t.getDaily_price());
-//            stm.setFloat(4, t.getHoliday_price());
-//            stm.setString(5, t.getNumber_room());
-//            stm.setString(6, t.getNumber_people());
-//            stm.setString(7, t.getDescription());
-//            stm.setString(8, t.getPhone());
-//
-//            isSuccess = stm.executeUpdate() == 1;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        String sql = "INSERT INTO [dbo].[Vehicle] "
+                + "([service_category_id]\n"
+                + "           ,[vehicle_type]\n"
+                + "           ,[vehicle_name]\n"
+                + "           ,[number_seat]\n"
+                + "           ,[phone]) "
+                + "VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setString(2, t.getVehicle_type());
+            stm.setInt(1, t.getService_category_id());
+            stm.setString(3, t.getVehicle_name());
+            stm.setInt(4, t.getNumber_seat());
+            stm.setString(5, t.getPhone());
+            isSuccess = stm.executeUpdate() == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return isSuccess;
     }
 
@@ -99,12 +98,13 @@ public class VehicleDAO extends DBContext implements VehecleRepo {
     }
 
     @Override
-    public boolean deleteVehicle(String name) {
+    public boolean deleteVehicle(int id) {
         boolean isSuccess = false;
-        String sql = "DELETE FROM Hotel WHERE hotel_name = ?";
+        String sql = "DELETE FROM [dbo].[Vehicle]\n" +
+"      WHERE vehicle_id = ?";
 
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
-            stm.setString(1, name);
+            stm.setInt(1, id);
             isSuccess = stm.executeUpdate() == 1;
         } catch (SQLException e) {
             e.printStackTrace(); // Print the stack trace for debugging
